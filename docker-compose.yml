@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  testtask.departments.api:
+    image: ${DOCKER_REGISTRY-}testtaskdepartmentsapi
+    build:
+      context: .
+      dockerfile: TestTask.Departments.Api/Dockerfile
+    ports:
+      - "3006:80"
+    environment:
+      DB_CONNECTION_STRING: "host=postgres;port=5432;database=TestTask.Departments;username=worker;password=pjEPdhRRNPmg"
+    depends_on: 
+      - postgres
+  postgres:
+    image: postgres:14.4
+    environment:
+      POSTGRES_DB: "TestTask.Departments"
+      POSTGRES_USER: "worker"
+      POSTGRES_PASSWORD: "pjEPdhRRNPmg"
+    ports:
+      - "5432:5432"
